@@ -1,13 +1,703 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Икзет тестовой сайт</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PODPIVAS — CS2 Team</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #07090d;
+    color: white;
+}
+
+/* ===== HEADER ===== */
+
+header {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at center, #30200d 0%, #12100b 30%, #07090d 75%);
+}
+
+header::before,
+header::after {
+    content: "";
+    position: absolute;
+    border: 1px solid rgba(255, 125, 0, 0.12);
+    border-radius: 50%;
+}
+
+header::before {
+    width: 600px;
+    height: 600px;
+    animation: spin 18s linear infinite;
+}
+
+header::after {
+    width: 900px;
+    height: 900px;
+}
+
+.hero {
+    position: relative;
+    z-index: 2;
+    padding: 30px;
+    animation: appear 1.2s ease;
+}
+
+.badge {
+    display: inline-block;
+    padding: 10px 22px;
+    border: 1px solid #ff8500;
+    border-radius: 30px;
+    color: #ff8500;
+    font-size: 12px;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    font-size: clamp(60px, 13vw, 160px);
+    font-weight: 900;
+    letter-spacing: -7px;
+
+    background: linear-gradient(90deg, white, #ff8500);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.hero h2 {
+    margin-top: 20px;
+    font-size: 28px;
+    color: #aaa;
+}
+
+.orange {
+    color: #ff8500;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: 25px auto;
+    color: #858b94;
+    line-height: 1.8;
+}
+
+.button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 30px;
+
+    background: #ff8500;
+    color: #111;
+
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+
+    transition: .3s;
+}
+
+.button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 35px rgba(255, 133, 0, .3);
+}
+
+/* ===== SECTIONS ===== */
+
+section {
+    max-width: 1200px;
+    margin: auto;
+    padding: 100px 25px;
+}
+
+.title {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.title span {
+    color: #ff8500;
+}
+
+.description {
+    max-width: 750px;
+    color: #858b94;
+    line-height: 1.8;
+}
+
+/* ===== ABOUT ===== */
+
+.about {
+    margin-top: 45px;
+    padding: 45px;
+
+    background: linear-gradient(145deg, #15181f, #0c0e13);
+    border: 1px solid #252a32;
+    border-radius: 20px;
+}
+
+.about p {
+    color: #9298a2;
+    line-height: 1.9;
+}
+
+/* ===== TEAM ===== */
+
+.team {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 50px;
+}
+
+.player {
+    position: relative;
+    padding: 35px;
+
+    background: linear-gradient(145deg, #15181f, #0c0e13);
+    border: 1px solid #252a32;
+    border-radius: 20px;
+
+    overflow: hidden;
+    transition: .35s;
+}
+
+.player:hover {
+    transform: translateY(-8px);
+    border-color: #ff8500;
+    box-shadow: 0 20px 60px rgba(255, 133, 0, .12);
+}
+
+.number {
+    position: absolute;
+    right: 25px;
+    top: 20px;
+    color: #444a53;
+    font-size: 13px;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #20242c;
+    border: 1px solid #343944;
+    border-radius: 18px;
+
+    font-size: 38px;
+    margin-bottom: 25px;
+}
+
+.player h3 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.role {
+    color: #ff8500;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.player p {
+    color: #9298a2;
+    line-height: 1.7;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 22px;
+}
+
+.tag {
+    padding: 8px 12px;
+    background: #1d2128;
+    color: #9da3ad;
+    border-radius: 7px;
+    font-size: 12px;
+}
+
+/* ===== TEAM STYLE ===== */
+
+.style-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.style-card {
+    padding: 35px;
+
+    background: #101319;
+    border: 1px solid #252a32;
+    border-radius: 18px;
+
+    transition: .3s;
+}
+
+.style-card:hover {
+    transform: translateY(-5px);
+    border-color: #ff8500;
+}
+
+.icon {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.style-card h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.style-card p {
+    color: #858b94;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+/* ===== TEAM QUOTE ===== */
+
+.team-quote {
+    text-align: center;
+}
+
+.quote-box {
+    margin-top: 45px;
+    padding: 70px 30px;
+
+    background:
+        radial-gradient(circle at center, rgba(255,133,0,.12), transparent 60%),
+        #101319;
+
+    border: 1px solid #292e37;
+    border-radius: 25px;
+}
+
+.quote-box h3 {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.quote-box p {
+    max-width: 700px;
+    margin: auto;
+
+    color: #858b94;
+    line-height: 1.8;
+}
+
+/* ===== FOOTER ===== */
+
+footer {
+    border-top: 1px solid #1e2229;
+    padding: 50px 20px;
+    text-align: center;
+    color: #666d77;
+}
+
+footer strong {
+    color: #ff8500;
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===== MOBILE ===== */
+
+@media (max-width: 800px) {
+
+    .team {
+        grid-template-columns: 1fr;
+    }
+
+    .style-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .title {
+        font-size: 38px;
+    }
+
+    .about {
+        padding: 30px;
+    }
+
+    .quote-box h3 {
+        font-size: 32px;
+    }
+}
+</style>
 </head>
-<body style="background-color: lightblue;">
-<h1>Первый сайт</h1>
-<p>Привет, я Ixzet</p>
-<p>Это создано на первом дне обучении, дальше больше и интереснее</p>	
-</body>	
+
+<body>
+
+
+<!-- ===== ГЛАВНЫЙ ЭКРАН ===== -->
+
+<header>
+
+    <div class="hero">
+
+        <div class="badge">
+            COUNTER-STRIKE 2 · ESPORTS TEAM
+        </div>
+
+        <h1>PODPIVAS</h1>
+
+        <h2>
+            <span class="orange">4 игрока</span> — одна команда
+        </h2>
+
+        <p>
+            PODPIVAS — команда Counter-Strike 2, где каждый игрок
+            обладает своим стилем и характером. Вместе они создают
+            команду, способную дать бой любому сопернику.
+        </p>
+
+        <a href="#team" class="button">
+            СОСТАВ КОМАНДЫ
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- ===== О КОМАНДЕ ===== -->
+
+<section>
+
+    <h2 class="title">
+        О <span>PODPIVAS</span>
+    </h2>
+
+    <p class="description">
+        Команда, построенная на индивидуальном мастерстве,
+        взаимопомощи и желании побеждать.
+    </p>
+
+    <div class="about">
+
+        <p>
+            PODPIVAS объединяет четырёх игроков с совершенно
+            разными игровыми качествами.
+
+            <br><br>
+
+            Здесь есть отличный аим, брутальная игра, холодный
+            интеллект и физическая мощь характера.
+
+            <br><br>
+
+            Каждый участник дополняет остальных, а главная задача
+            команды — действовать вместе и добиваться победы.
+
+            <br><br>
+
+            <strong>
+                PODPIVAS — это не четыре отдельных игрока.
+                Это одна команда.
+            </strong>
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ===== СОСТАВ ===== -->
+
+<section id="team">
+
+    <h2 class="title">
+        Состав <span>PODPIVAS</span>
+    </h2>
+
+    <p class="description">
+        Четыре игрока. Четыре характера. Один общий результат.
+    </p>
+
+
+    <div class="team">
+
+
+        <!-- IXZET -->
+
+        <div class="player">
+
+            <div class="number">01</div>
+
+            <div class="avatar">🎯</div>
+
+            <h3>Ixzet</h3>
+
+            <div class="role">
+                AIM PLAYER
+            </div>
+
+            <p>
+                Ixzet обладает отличным аимом и быстрой реакцией.
+                Он уверенно чувствует себя в перестрелках и способен
+                создавать важные моменты для своей команды.
+            </p>
+
+            <div class="tags">
+                <div class="tag">🎯 AIM</div>
+                <div class="tag">⚡ Реакция</div>
+                <div class="tag">🔥 Стрельба</div>
+            </div>
+
+        </div>
+
+
+        <!-- BLACKDON -->
+
+        <div class="player">
+
+            <div class="number">02</div>
+
+            <div class="avatar">💀</div>
+
+            <h3>BlackDon</h3>
+
+            <div class="role">
+                AGGRESSIVE PLAYER
+            </div>
+
+            <p>
+                BlackDon — самый брутальный игрок PODPIVAS.
+                Он любит играть агрессивно, оказывать давление
+                и унизить любого соперника, не боится сложных перестрелок.
+            </p>
+
+            <div class="tags">
+                <div class="tag">💀 Брутальность</div>
+                <div class="tag">🔥 Агрессия</div>
+                <div class="tag">💪 Напор</div>
+            </div>
+
+        </div>
+
+
+        <!-- DANIK -->
+
+        <div class="player">
+
+            <div class="number">03</div>
+
+            <div class="avatar">🧠</div>
+
+            <h3>Danik</h3>
+
+            <div class="role">
+                STRATEGIST
+            </div>
+
+            <p>
+                Danik — самый умный и рассудительный игрок в составе.
+                Он анализирует ситуацию, замечает действия
+                соперников и помогает команде выбирать правильную
+                тактику.
+            </p>
+
+            <div class="tags">
+                <div class="tag">🧠 Интеллект</div>
+                <div class="tag">👁 Анализ</div>
+                <div class="tag">♟ Тактика</div>
+            </div>
+
+        </div>
+
+
+        <!-- HATAB -->
+
+        <div class="player">
+
+            <div class="number">04</div>
+
+            <div class="avatar">🏋️</div>
+
+            <h3>Hatab</h3>
+
+            <div class="role">
+                POWER PLAYER
+            </div>
+
+            <p>
+                Hatab — качок команды PODPIVAS.
+                Он обладает мощным характером, уверенностью
+                и готовностью бороться за каждый раунд.
+            </p>
+
+            <div class="tags">
+                <div class="tag">🏋️ Мощь</div>
+                <div class="tag">🛡 Стойкость</div>
+                <div class="tag">🔥 Характер</div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ===== СТИЛЬ ИГРЫ ===== -->
+
+<section>
+
+    <h2 class="title">
+        Стиль игры <span>PODPIVAS</span>
+    </h2>
+
+    <p class="description">
+        Команда сочетает индивидуальный скилл игроков
+        с командным взаимодействием.
+    </p>
+
+
+    <div class="style-grid">
+
+        <div class="style-card">
+
+            <div class="icon">🎯</div>
+
+            <h3>Точный AIM</h3>
+
+            <p>
+                Игроки команды стараются уверенно реализовывать
+                свои возможности в перестрелках.
+            </p>
+
+        </div>
+
+
+        <div class="style-card">
+
+            <div class="icon">🧠</div>
+
+            <h3>Интеллект</h3>
+
+            <p>
+                Анализ ситуации и грамотные решения помогают
+                PODPIVAS адаптироваться к игре соперника.
+            </p>
+
+        </div>
+
+
+        <div class="style-card">
+
+            <div class="icon">🤝</div>
+
+            <h3>Командная работа</h3>
+
+            <p>
+                Главная сила команды — взаимодействие четырёх
+                игроков и поддержка друг друга.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ===== ФИЛОСОФИЯ ===== -->
+
+<section class="team-quote">
+
+    <h2 class="title">
+        Философия <span>команды</span>
+    </h2>
+
+    <div class="quote-box">
+
+        <h3>ONE TEAM. ONE GOAL.</h3>
+
+        <p>
+            Каждый игрок важен. Каждый раунд имеет значение.
+            Мы не играем друг против друга — мы играем вместе.
+
+            <br><br>
+
+            <strong>
+                PODPIVAS — играем вместе, побеждаем вместе.
+            </strong>
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ===== FOOTER ===== -->
+
+<footer>
+
+    <p>
+        <strong>PODPIVAS</strong>
+        · Counter-Strike 2 Team
+    </p>
+
+    <p style="margin-top: 10px;">
+        Ixzet · BlackDon · Danik · Hatab
+    </p>
+
+</footer>
+
+</body>
 </html>
